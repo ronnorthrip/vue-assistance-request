@@ -10,4 +10,18 @@ describe('AssistanceRequest.vue', () => {
     })
     expect(wrapper.text()).to.include(title)
   })
+
+  it('displays services in service_type select', () => {
+    const display_name = 'A Fancy New Service to Choose'
+    const wrapper = shallowMount(AssistanceRequest)
+    wrapper.setData({
+      services:[
+                  {
+                    "display_name": display_name,
+                    "id": "new_service_id"
+                  }
+                ]
+    })
+    expect(wrapper.html()).to.include(display_name)
+  })
 })

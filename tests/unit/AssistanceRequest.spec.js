@@ -24,4 +24,33 @@ describe('AssistanceRequest.vue', () => {
     })
     expect(wrapper.html()).to.include(display_name)
   })
+
+  it('displays form data in the inputs', () => {
+    const first_name = 'Ulysses'
+    const last_name  = 'Grant'
+    const email      = 'ulysses@union.mil'
+    const service_type = 'benefits'
+    const description = 'The friend in my adversity I shall always cherish most. '+
+      'I can better trust those who have helped to relieve the gloom of my dark hours '+
+      'than those who are so ready to enjoy with me the sunshine of my prosperity.'
+    const wrapper = shallowMount(AssistanceRequest)
+    wrapper.setData({
+      form: {
+        assistance_request: {
+          contact: {
+            first_name: first_name,
+            last_name: last_name,
+            email: email
+          }
+        },
+        service_type: service_type,
+        description: description
+      },
+    })
+    expect(wrapper.find('.form-control[name=first_name]').element.value).to.equal(first_name)
+    expect(wrapper.find('.form-control[name=last_name]').element.value).to.equal(last_name)
+    expect(wrapper.find('.form-control[name=email]').element.value).to.equal(email)
+    expect(wrapper.find('.form-control[name=description]').element.value).to.equal(description)
+    expect(wrapper.find('.form-control[name=service_type]').element.value).to.equal(service_type)
+  })
 })

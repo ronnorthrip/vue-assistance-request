@@ -8,7 +8,7 @@
             <!-- First Name -->
             <div class="form-group">
                 <div>
-                    <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                    <input type="text" class="form-control" name="first_name"  v-model='form.assistance_request.contact.first_name' placeholder="First Name">
                 </div>
                 <div class="text-danger text-right mb-2 mt-1" data-for="first_name">
                     required
@@ -18,7 +18,7 @@
             <!-- Last Name -->
             <div class="form-group">
                 <div>
-                    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                    <input type="text" class="form-control" name="last_name"  v-model='form.assistance_request.contact.last_name' placeholder="Last Name">
                 </div>
                 <div class="text-danger text-right mb-2 mt-1" data-for="last_name">
                     required
@@ -28,7 +28,7 @@
             <!-- Email Address -->
             <div class="form-group">
                 <div>
-                    <input type="email" class="form-control" name="email" placeholder="Email Address">
+                    <input type="email" class="form-control" name="email"  v-model='form.assistance_request.contact.email' placeholder="Email Address">
                 </div>
                 <div class="text-danger text-right mb-2 mt-1" data-for="email">
                     required
@@ -38,7 +38,7 @@
             <!-- Service Type -->
             <div class="form-group">
                 <div>
-                    <select class="form-control" name="service_type" >
+                    <select class="form-control" name="service_type" v-model='form.service_type'>
                       <option :value="null" selected disabled>Select Service Type</option>
                       <option :value="service.id" v-for="service in services">{{ service.display_name }}</option>
                     </select>
@@ -51,7 +51,7 @@
             <!-- Description -->
             <div class="form-group">
                 <div>
-                    <textarea class="form-control" name="description" rows="10" placeholder="Describe Your Need">
+                    <textarea class="form-control" name="description" rows="10" v-model='form.description' placeholder="Describe Your Need">
                     </textarea>
                 </div>
                 <div class="text-danger text-right mb-2 mt-1" data-for="description">
@@ -64,7 +64,7 @@
                 <div class="ml-1">
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" name="accept_terms" class="form-check-input"> 
+                            <input type="checkbox" name="accept_terms"  v-model='accept_terms' class="form-check-input"> 
                             I hereby accept the terms of service for THE NETWORK and the Privacy Policy
                         </label>
                     </div>
@@ -74,7 +74,7 @@
             <!-- Submit Button -->
             <div class="form-group mt-3 mb-0 text-right">
                 <div class="">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary">
                         Get Assistance
                     </button>
                 </div>
@@ -93,6 +93,18 @@ export default {
   },
   data() {
     return {
+      accept_terms: false,
+      form: {
+        assistance_request: {
+          contact: {
+            first_name: null,
+            last_name: null,
+            email: null
+          }
+        },
+        service_type: null,
+        description: null
+      },
       services:[
           {
             "display_name": "Benefits",

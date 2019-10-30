@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <AssistanceRequest title="Assistance Request"/>
+    <AssistanceRequest title="New Assistance Request"/>
   </div>
 </template>
 

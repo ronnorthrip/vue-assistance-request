@@ -38,8 +38,9 @@
             <!-- Service Type -->
             <div class="form-group">
                 <div>
-                    <select class="form-control" name="service_type">
-                      <option>Select Service Type</option>
+                    <select class="form-control" name="service_type" >
+                      <option :value="null" selected disabled>Select Service Type</option>
+                      <option :value="service.id" v-for="service in services">{{ service.display_name }}</option>
                     </select>
                 </div>
                 <div class="text-danger text-right mb-2 mt-1" data-for="service_type">
@@ -89,6 +90,32 @@ export default {
   name: 'AssistanceRequest',
   props: {
     title: String
+  },
+  data() {
+    return {
+      services:[
+          {
+            "display_name": "Benefits",
+            "id": "benefits"
+          },
+          {
+            "display_name": "Employment",
+            "id": "employment"
+          },
+          {
+            "display_name": "Healthcare",
+            "id": "healthcare"
+          },
+          {
+            "display_name": "Housing",
+            "id": "housing"
+          },
+          {
+            "display_name": "Legal",
+            "id": "legal"
+          }
+        ]
+    };
   },
   computed: {
   },

@@ -50,7 +50,7 @@
             <!-- Description -->
             <div class="form-group">
                 <div>
-                    <textarea class="form-control" name="description" rows="10">
+                    <textarea class="form-control" name="description" rows="10" placeholder="Describe Your Need">
                     </textarea>
                 </div>
                 <div class="text-danger text-right mb-2 mt-1" data-for="description">

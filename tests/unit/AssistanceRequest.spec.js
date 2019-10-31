@@ -2,25 +2,55 @@ import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
 import AssistanceRequest from '@/components/AssistanceRequest.vue'
 
+const fakeFetchMethods = {
+  fetchServicesList(){
+    this.services = [
+      {
+        "display_name": "Benefits",
+        "id": "benefits"
+      },
+      {
+        "display_name": "Employment",
+        "id": "employment"
+      },
+      {
+        "display_name": "Healthcare",
+        "id": "healthcare"
+      },
+      {
+        "display_name": "Housing",
+        "id": "housing"
+      },
+      {
+        "display_name": "Legal",
+        "id": "legal"
+      }
+    ]
+  }
+}
+
 describe('AssistanceRequest.vue', () => {
   it('renders props.title when passed', () => {
     const title = 'new message'
     const wrapper = shallowMount(AssistanceRequest, {
-      propsData: { title }
+      propsData: { title },
+      methods: fakeFetchMethods
     })
     expect(wrapper.text()).to.include(title)
   })
 
   it('displays services in service_type select', () => {
     const display_name = 'A Fancy New Service to Choose'
-    const wrapper = shallowMount(AssistanceRequest)
+    const wrapper = shallowMount(AssistanceRequest, {
+      methods: fakeFetchMethods
+    })
     wrapper.setData({
-      services:[
-                  {
-                    "display_name": display_name,
-                    "id": "new_service_id"
-                  }
-                ]
+      services: [
+        {
+          "display_name": display_name,
+          "id": "new_service_id"
+        }
+      ]
     })
     expect(wrapper.html()).to.include(display_name)
   })
@@ -33,7 +63,9 @@ describe('AssistanceRequest.vue', () => {
     const description = 'The friend in my adversity I shall always cherish most. '+
       'I can better trust those who have helped to relieve the gloom of my dark hours '+
       'than those who are so ready to enjoy with me the sunshine of my prosperity.'
-    const wrapper = shallowMount(AssistanceRequest)
+    const wrapper = shallowMount(AssistanceRequest, {
+      methods: fakeFetchMethods
+    })
     wrapper.setData({
       form: {
         assistance_request: {

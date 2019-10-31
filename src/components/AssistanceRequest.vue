@@ -180,6 +180,7 @@ export default {
       )
       .then(response => {
         this.submission.successful = true
+        this.clearTheForm()
       })
       .catch(error => {
         window.console.log(error)

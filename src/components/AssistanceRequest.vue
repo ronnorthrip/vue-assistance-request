@@ -81,7 +81,7 @@
             <!-- Submit Button -->
             <div class="form-group mt-3 mb-0 text-right">
                 <div class="">
-                    <button type="button" class="btn btn-primary" :disabled="mustAcceptTerms">
+                    <button type="button" class="btn btn-primary get-assistance-button" :disabled="mustAcceptTerms">
                         Get Assistance
                     </button>
                 </div>

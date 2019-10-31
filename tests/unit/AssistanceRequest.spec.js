@@ -95,4 +95,12 @@ describe('AssistanceRequest.vue', () => {
     wrapper.setData({ servicesFetchFailed: true })
     expect(wrapper.find('.alerts').text()).to.include(msg)
   })
+
+  it('disable button if terms not accepted', () => {
+    const wrapper = shallowMount(AssistanceRequest, {
+      methods: fakeFetchMethods
+    })
+    wrapper.setData({ accept_terms: false })
+    expect(wrapper.find('.get-assistance-button').element.disabled).to.equal(true)
+  })
 })

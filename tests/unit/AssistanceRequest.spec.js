@@ -85,4 +85,14 @@ describe('AssistanceRequest.vue', () => {
     expect(wrapper.find('.form-control[name=description]').element.value).to.equal(description)
     expect(wrapper.find('.form-control[name=service_type]').element.value).to.equal(service_type)
   })
+
+  it('conditionally shows an error message based on services fetch state', () => {
+    const msg = 'error getting the list of services'
+    const wrapper = shallowMount(AssistanceRequest, {
+      methods: fakeFetchMethods
+    })
+    expect(wrapper.find('.alerts').text()).to.not.include(msg)
+    wrapper.setData({ servicesFetchFailed: true })
+    expect(wrapper.find('.alerts').text()).to.include(msg)
+  })
 })

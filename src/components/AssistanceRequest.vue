@@ -5,6 +5,13 @@
 
       <div class="card-body">
         <form role="form">
+            <div class="alerts">
+              <!-- Services Fetch Error -->
+              <div class="alert alert-danger mb-4" v-if="servicesFetchFailed">
+                Woops, there was an error getting the list of services.
+              </div>
+            </div>
+
             <!-- First Name -->
             <div class="form-group">
                 <div>
@@ -107,7 +114,8 @@ export default {
         service_type: null,
         description: null
       },
-      services:[]
+      services:[],
+      servicesFetchFailed: false
     };
   },
   computed: {
@@ -120,10 +128,11 @@ export default {
       axios.get(this.api_domain+'/api/service-types')
       .then(response => {
         this.services=response.data.data
+        this.servicesFetchFailed = false
       })
       .catch(error => {
         window.console.log(error)
-        // self.errored = true
+        this.servicesFetchFailed = true
       });
     }
   }

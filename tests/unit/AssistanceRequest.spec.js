@@ -96,6 +96,36 @@ describe('AssistanceRequest.vue', () => {
     expect(wrapper.find('.alerts').text()).to.include(msg)
   })
 
+  it('shows the success message if submission worked', () => {
+    const msg = 'request has been submitted'
+    const wrapper = shallowMount(AssistanceRequest, {
+      methods: fakeFetchMethods
+    })
+    wrapper.setData({ submission: {
+        busy: false,
+        successful: true,
+        errors: true,
+        error_message: null
+      } 
+    })
+    expect(wrapper.find('.alerts').text()).to.include(msg)
+  })
+
+  it('shows the passed error message if submission failed', () => {
+    const msg = 'Crazy Errore Message Of Love'
+    const wrapper = shallowMount(AssistanceRequest, {
+      methods: fakeFetchMethods
+    })
+    wrapper.setData({ submission: {
+        busy: false,
+        successful: false,
+        errors: true,
+        error_message: msg
+      } 
+    })
+    expect(wrapper.find('.alerts').text()).to.include(msg)
+  })
+
   it('disable button if terms not accepted', () => {
     const wrapper = shallowMount(AssistanceRequest, {
       methods: fakeFetchMethods

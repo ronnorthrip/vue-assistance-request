@@ -103,19 +103,10 @@ export default {
     return {
       api_domain: 'http://localhost:49567',
       accept_terms: false,
-      form: {
-        assistance_request: {
-          contact: {
-            first_name: null,
-            last_name: null,
-            email: null
-          }
-        },
-        service_type: null,
-        description: null
-      },
+      form: this.emptyForm(),
       services:[],
-      servicesFetchFailed: false
+      servicesFetchFailed: false,
+      submission: this.emptySubmission()
     };
   },
   computed: {
@@ -127,6 +118,38 @@ export default {
     this.fetchServicesList()
   },
   methods: {
+    clearTheForm() {
+      this.accept_terms = false
+      this.form = this.emptyForm()
+    },
+
+    emptyForm() {
+      return {
+        assistance_request: {
+          contact: {
+            first_name: null,
+            last_name: null,
+            email: null
+          }
+        },
+        service_type: null,
+        description: null
+      }
+    },
+
+    clearTheSubmission() {
+      this.submission = this.emptySubmission()
+    },
+
+    emptySubmission() {
+      return {
+        busy: false,
+        successful: false,
+        errors: false,
+        error_message: null
+      }
+    },
+
     fetchServicesList() {
       axios.get(this.api_domain+'/api/service-types')
       .then(response => {

@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'AssistanceRequest',
   props: {
@@ -93,6 +94,7 @@ export default {
   },
   data() {
     return {
+      api_domain: 'http://localhost:49567',
       accept_terms: false,
       form: {
         assistance_request: {
@@ -105,35 +107,25 @@ export default {
         service_type: null,
         description: null
       },
-      services:[
-          {
-            "display_name": "Benefits",
-            "id": "benefits"
-          },
-          {
-            "display_name": "Employment",
-            "id": "employment"
-          },
-          {
-            "display_name": "Healthcare",
-            "id": "healthcare"
-          },
-          {
-            "display_name": "Housing",
-            "id": "housing"
-          },
-          {
-            "display_name": "Legal",
-            "id": "legal"
-          }
-        ]
+      services:[]
     };
   },
   computed: {
   },
   mounted() {
+    this.fetchServicesList()
   },
   methods: {
+    fetchServicesList() {
+      axios.get(this.api_domain+'/api/service-types')
+      .then(response => {
+        this.services=response.data.data
+      })
+      .catch(error => {
+        window.console.log(error)
+        // self.errored = true
+      });
+    }
   }
 }
 </script>

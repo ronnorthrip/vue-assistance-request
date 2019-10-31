@@ -10,6 +10,17 @@
               <div class="alert alert-danger mb-4" v-if="servicesFetchFailed">
                 Woops, there was an error getting the list of services.
               </div>
+
+              <!-- Success Message -->
+              <div class="alert alert-success mb-4" v-if="submission.successful">
+                Your assistance request has been submitted!
+              </div>
+
+              <!-- Error Message -->
+              <div class="alert alert-danger mb-4" v-if="submission.errors">
+                Woops, there was an error submitting your form. <br />
+                {{ submission.error_message }}
+              </div>
             </div>
 
             <!-- First Name -->

@@ -92,7 +92,8 @@
             <!-- Submit Button -->
             <div class="form-group mt-3 mb-0 text-right">
                 <div class="">
-                    <button type="button" class="btn btn-primary get-assistance-button" :disabled="mustAcceptTerms">
+                    <button type="button" class="btn btn-primary get-assistance-button" 
+                    :disabled="mustAcceptTerms" @click.prevent="postRequest">
                         Get Assistance
                     </button>
                 </div>
@@ -159,6 +160,35 @@ export default {
         errors: false,
         error_message: null
       }
+    },
+
+    postRequest() {
+      this.emptySubmission()
+      this.submission.busy = true
+      axios.post(this.api_domain+'/api/assistance-requests', 
+        {
+          "assistance_request": {
+            "contact": {
+              "first_name": this.form.assistance_request.contact.first_name,
+              "last_name": this.form.assistance_request.contact.last_name,
+              "email": this.form.assistance_request.contact.last_name
+            },
+            "service_type": this.form.service_type,
+            "description": this.form.description
+          }
+        }
+      )
+      .then(response => {
+        this.submission.successful = true
+        this.submission.errors = false
+      })
+      .catch(error => {
+        window.console.log(error)
+        this.submission.successful = false
+        this.submission.errors = true
+        this.submission.error_message = error.response.data.message
+      })
+      .finally(() => this.submission.busy = false);
     },
 
     fetchServicesList() {

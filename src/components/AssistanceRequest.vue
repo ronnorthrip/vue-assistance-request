@@ -17,7 +17,7 @@
                 <div>
                     <input type="text" class="form-control" name="first_name"  v-model='form.assistance_request.contact.first_name' placeholder="First Name">
                 </div>
-                <div class="text-danger text-right mb-2 mt-1" data-for="first_name">
+                <div class="text-right mb-2 mt-1" :class="(form.assistance_request.contact.first_name)? 'text-muted' : 'text-danger'" data-for="first_name">
                     required
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div>
                     <input type="text" class="form-control" name="last_name"  v-model='form.assistance_request.contact.last_name' placeholder="Last Name">
                 </div>
-                <div class="text-danger text-right mb-2 mt-1" data-for="last_name">
+                <div class="text-right mb-2 mt-1" :class="(form.assistance_request.contact.last_name)? 'text-muted' : 'text-danger'" data-for="last_name">
                     required
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div>
                     <input type="email" class="form-control" name="email"  v-model='form.assistance_request.contact.email' placeholder="Email Address">
                 </div>
-                <div class="text-danger text-right mb-2 mt-1" data-for="email">
+                <div class="text-right mb-2 mt-1" :class="(form.assistance_request.contact.email)? 'text-muted' : 'text-danger'" data-for="email">
                     required
                 </div>
             </div>
@@ -50,7 +50,7 @@
                       <option :value="service.id" v-for="service in services">{{ service.display_name }}</option>
                     </select>
                 </div>
-                <div class="text-danger text-right mb-2 mt-1" data-for="service_type">
+                <div class="text-right mb-2 mt-1" :class="(form.service_type)? 'text-muted' : 'text-danger'" data-for="service_type">
                     required
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     <textarea class="form-control" name="description" rows="10" v-model='form.description' placeholder="Describe Your Need">
                     </textarea>
                 </div>
-                <div class="text-danger text-right mb-2 mt-1" data-for="description">
+                <div class="text-right mb-2 mt-1" :class="(form.description)? 'text-muted' : 'text-danger'" data-for="description">
                     required
                 </div>
             </div>
@@ -81,7 +81,7 @@
             <!-- Submit Button -->
             <div class="form-group mt-3 mb-0 text-right">
                 <div class="">
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" :disabled="mustAcceptTerms">
                         Get Assistance
                     </button>
                 </div>
@@ -119,6 +119,9 @@ export default {
     };
   },
   computed: {
+    mustAcceptTerms() {
+      return (!this.accept_terms)? true : false
+    }
   },
   mounted() {
     this.fetchServicesList()

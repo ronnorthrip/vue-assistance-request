@@ -163,7 +163,7 @@ export default {
     },
 
     postRequest() {
-      this.emptySubmission()
+      this.clearTheSubmission()
       this.submission.busy = true
       axios.post(this.api_domain+'/api/assistance-requests', 
         {
@@ -180,11 +180,9 @@ export default {
       )
       .then(response => {
         this.submission.successful = true
-        this.submission.errors = false
       })
       .catch(error => {
         window.console.log(error)
-        this.submission.successful = false
         this.submission.errors = true
         this.submission.error_message = error.response.data.message
       })
